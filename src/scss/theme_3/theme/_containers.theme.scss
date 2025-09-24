@@ -1,0 +1,15 @@
+@use '../abstracts/_variables' as *;
+
+// Global gutters (spacing inside containers)
+$theme-container-gutter: 1rem;
+
+/** containers */
+
+$theme-container-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+

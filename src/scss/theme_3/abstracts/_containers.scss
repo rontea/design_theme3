@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "../theme/containers.theme" as *;
+@use "../theme/breakpoints.theme" as *;
+
+// Base container styles
+@mixin container-base {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $theme-container-gutter;
+  padding-right: $theme-container-gutter;
+}
+
+// Responsive container
+.container {
+  @include container-base;
+
+  @each $name, $width in $theme-container-widths {
+    $breakpoint: map.get($theme-breakpoints, $name);
+
+    @if $breakpoint != null {
+      @media (min-width: $breakpoint) {
+        max-width: $width;
+      }
+    }
+  }
+}
+
+// Fluid container (always 100%)
+.container-fluid {
+  @include container-base;
+  max-width: 100%;
+}
+
+// Fixed containers at specific widths
+@each $name, $width in $theme-container-widths {
+  .container-#{$name} {
+    @include container-base;
+    max-width: $width;
+  }
+}

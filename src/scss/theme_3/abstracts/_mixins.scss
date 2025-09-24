@@ -1,0 +1,68 @@
+
+@use "sass:map";
+@use "../theme/header.theme" as *;
+
+
+
+/** @desc Apply theme properties
+ * @param {String} $theme-name - Name of the theme (e.g., 'light', 'dark')
+ */
+
+@mixin theme-header($theme-name) {
+  $theme: map.get($themes, $theme-name);
+
+  background-color: map.get($theme, header-bg);
+  color: map.get($theme, header-color);
+
+  a {
+    color: map.get($theme, nav-link-color);
+
+    &:hover {
+      color: map.get($theme, nav-link-hover);
+    }
+  }
+}
+
+/** @desc Apply dropdown styles
+ * @param {String} $theme-name - Name of the theme (e.g., 'light', 'dark')
+ */
+
+@mixin dropdown($theme-name) {
+  $theme: map.get($themes, $theme-name);
+
+  position: relative;
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: map.get($theme, dropdown-bg);
+    border-radius: 0.25rem;
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+
+    li {
+      a {
+        display: block;
+        padding: 0.5rem 1rem;
+        white-space: nowrap;
+        text-decoration: none;
+        color: map.get($theme, nav-link-color);
+
+        &:hover {
+          background-color: map.get($theme, dropdown-hover-bg);
+          color: map.get($theme, nav-link-hover);
+        }
+      }
+    }
+  }
+
+  &:hover .dropdown-menu {
+    display: block;
+  }
+}
+
+

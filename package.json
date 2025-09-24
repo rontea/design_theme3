@@ -1,0 +1,25 @@
+{
+  "name": "forms_theme3",
+  "version": "0.0.0",
+  "description": "Forms UI add-ons to Theme_3 , part of Theme_3 family; this build focus on forms for build insertions using handlebars and vue as core concept.",
+  "main": " is using Handlebars and the Theme3 forms runs on Theme_3",
+  "bin": {
+    "th3": "./node_modules/theme_3/bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rontea/forms_theme3.git"
+  },
+  "author": "rontea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rontea/forms_theme3/issues"
+  },
+  "homepage": "https://github.com/rontea/forms_theme3#readme",
+  "devDependencies": {
+    "theme_3": "^1.0.0"
+  }
+}

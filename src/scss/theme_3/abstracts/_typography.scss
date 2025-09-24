@@ -1,0 +1,119 @@
+/** use variable */
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+
+/** @dir src/scss/theme_3/abstracts/_typography.scss
+ * This file provides mixins for applying typography styles based on defined themes.
+ * @use themes as *; @where abstracts/_themes.scss
+ */
+
+@use '../theme/typography.theme' as *;
+
+
+/** Mixins */
+
+/** @desc Apply typography styles
+ * @param text-style {size, weight, line-height, letter-spacing}
+ * Mixin to apply typography styles based on the provided parameters.
+ */
+
+// Low-level mixin
+@mixin text-style($size, $weight, $line-height, $letter-spacing) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+
+/** @desc Apply typography styles
+ * @param name {string}
+ * Mixin to apply typography styles based on the style name from the active typography theme map.
+ */
+
+// Themed mixin
+@mixin text($name) {
+  $style: map.get($typography-theme-light, $name);
+
+  @if $style == null {
+    @error "Undefined text style: `#{$name}` in $typography-theme-light.";
+  }
+
+  // If the style is a MAP (used for h1..h6)
+  @if meta.type-of($style) == 'map' {
+    font-size: map.get($style, font-size);
+    font-weight: map.get($style, font-weight);
+    line-height: map.get($style, line-height);
+
+    @if map.has-key($style, letter-spacing) {
+      letter-spacing: map.get($style, letter-spacing);
+    }
+
+    @if map.has-key($style, margin-bottom) {
+      margin-bottom: map.get($style, margin-bottom);
+    }
+
+    @if map.has-key($style, color) {
+      color: map.get($style, color);
+    }
+  }
+
+  // If the style is a LIST (used for body/caption/etc.)
+  @else if meta.type-of($style) == 'list' {
+    @if list.length($style) < 4 {
+      @error "Typography theme list for `#{$name}` must contain 4 items (size, weight, line-height, letter-spacing).";
+    }
+
+    $font-size: list.nth($style, 1);
+    $font-weight: list.nth($style, 2);
+    $line-height: list.nth($style, 3);
+    $letter-spacing: list.nth($style, 4);
+
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+
+    @if $letter-spacing != 0 {
+      letter-spacing: $letter-spacing;
+    }
+  }
+
+  @else {
+    @error "Unsupported type for `#{$name}` in $typography-theme-light.";
+  }
+}
+
+
+/** @desc Apply typography styles
+ * @param name {string}
+ * Mixin to apply typography styles based on the style name from the active typography theme map.
+ */
+
+// load mixin for each typography style in the theme map
+@each $name, $style in $typography-theme {
+  .#{$name} {
+    @include text($name);
+  }
+}
+
+/** @desc Apply heading styles
+ * @param level {h1, h2, h3, h4, h5, h6}
+ * Mixin to apply heading styles based on the level from the headings theme map.
+ */
+
+@mixin heading($level) {
+  $style: map.get($headings-theme, $level);
+
+  font-size: map.get($style, font-size);
+  font-weight: map.get($style, font-weight);
+  line-height: map.get($style, line-height);
+  margin-bottom: map.get($style, margin-bottom);
+}
+
+h1 { @include heading(h1); }
+h2 { @include heading(h2); }
+h3 { @include heading(h3); }
+h4 { @include heading(h4); }
+h5 { @include heading(h5); }
+h6 { @include heading(h6); }

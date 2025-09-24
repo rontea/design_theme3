@@ -1,0 +1,12 @@
+@use '../abstracts/_variables' as *;
+
+/** Breakpoints */
+
+ $theme-breakpoints: (
+  xs: $breakpoint-xs, // 0px
+  sm: $breakpoint-sm, // 576px
+  md: $breakpoint-md, // 768px
+  lg: $breakpoint-lg, // 992px
+  xl: $breakpoint-xl, // 1200px
+  xxl: $breakpoint-xxl // 1400px
+);

@@ -1,0 +1,23 @@
+@use "../abstracts/variables" as *;
+
+
+/** @desc Header */
+
+$themes: (
+  light: (
+    header-bg: #ffffff,
+    header-color: #333333,
+    nav-link-color: #333333,
+    nav-link-hover: #007bff,
+    dropdown-bg: #ffffff,
+    dropdown-hover-bg: #f0f0f0
+  ),
+  dark: (
+    header-bg: #222222,
+    header-color: #f5f5f5,
+    nav-link-color: #f5f5f5,
+    nav-link-hover: #66b2ff,
+    dropdown-bg: #333333,
+    dropdown-hover-bg: rgba(255,255,255,0.1)
+  )
+);
