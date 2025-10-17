@@ -1,41 +1,77 @@
+
 @use "sass:map";
-@use "../theme/containers.theme" as *;
-@use "../theme/breakpoints.theme" as *;
+@use '../abstracts/_variables' as *;
+@use '../abstracts/_mixins' as *;
+@use '../theme/containers.theme' as *;
 
-// Base container styles
-@mixin container-base {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: $theme-container-gutter;
-  padding-right: $theme-container-gutter;
-}
+/**
+ * @file _containers.scss
+ * Responsive container system with theme variations.
+ */
 
-// Responsive container
+// ---------------------------------------------
+// 1. Define container max-widths for each breakpoint
+// ---------------------------------------------
+$container-widths: (
+  xs: 100%,        // Mobile: full width
+  sm: 540px,       // Small screens
+  md: 720px,       // Tablets
+  lg: 960px,       // Small laptops
+  xl: 1140px,      // Desktops
+  xxl: 1320px,     // Large screens
+  xxxl: 1600px     // Ultra-wide
+);
+
+// ---------------------------------------------
+// 2. Base container
+// ---------------------------------------------
 .container {
-  @include container-base;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: $space-4; // 1rem side padding
+  max-width: map.get($container-widths, xs);
 
-  @each $name, $width in $theme-container-widths {
-    $breakpoint: map.get($theme-breakpoints, $name);
-
-    @if $breakpoint != null {
-      @media (min-width: $breakpoint) {
-        max-width: $width;
+  // Responsive widths
+  @each $bp, $value in $breakpoints {
+    @if $bp != xs {
+      @media (min-width: #{$value}) {
+        max-width: map.get($container-widths, $bp);
       }
     }
   }
-}
 
-// Fluid container (always 100%)
-.container-fluid {
-  @include container-base;
-  max-width: 100%;
-}
+  // Theming: background and text color variants
+  &--light {
+    background-color: $color-light;
+    color: $color-dark;
+  }
 
-// Fixed containers at specific widths
-@each $name, $width in $theme-container-widths {
-  .container-#{$name} {
-    @include container-base;
-    max-width: $width;
+  &--dark {
+    background-color: $color-dark;
+    color: $color-light;
+  }
+
+  &--primary {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+
+  &--surface {
+    background-color: $color-surface;
+    color: $color-text;
+  }
+
+  // Optional shadow and border radius
+  &--shadow {
+    box-shadow: $shadow-md;
+  }
+
+  &--rounded {
+    border-radius: $radius-lg;
+  }
+
+  &--padded {
+    padding-block: $space-5;
+    padding-inline: $space-5;
   }
 }

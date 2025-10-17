@@ -2,11 +2,13 @@
 
 /** Breakpoints */
 
- $theme-breakpoints: (
-  xs: $breakpoint-xs, // 0px
-  sm: $breakpoint-sm, // 576px
-  md: $breakpoint-md, // 768px
-  lg: $breakpoint-lg, // 992px
-  xl: $breakpoint-xl, // 1200px
-  xxl: $breakpoint-xxl // 1400px
+
+$breakpoints: (
+  xs: 480px,   // Extra small devices (phones)
+  sm: 600px,   // Small devices (large phones / small tablets)
+  md: 768px,   // Medium devices (tablets)
+  lg: 992px,   // Large devices (small laptops)
+  xl: 1200px,  // Extra large devices (desktops)
+  xxl: 1440px, // Very large screens (wide monitors)
+  xxxl: 1920px // Ultra-wide / HD displays
 );

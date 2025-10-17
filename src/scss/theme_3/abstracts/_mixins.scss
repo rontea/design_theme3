@@ -1,8 +1,7 @@
 
 @use "sass:map";
 @use "../theme/header.theme" as *;
-
-
+@use "../theme/containers.theme" as *;
 
 /** @desc Apply theme properties
  * @param {String} $theme-name - Name of the theme (e.g., 'light', 'dark')
@@ -66,3 +65,25 @@
 }
 
 
+/* Responsive Mixin */
+@mixin respond($breakpoint) {
+  @if $breakpoint == 'tablet' {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+    @if $breakpoint == 'lg' {
+    @media (max-width: 992px) {
+      @content;
+    }
+  }
+}
+
+
+/** @desc Apply container styles */
+@each $name, $theme in $container-themes {
+  .container--#{$name} {
+    background-color: map.get($theme, background);
+    color: map.get($theme, text);
+  }
+}

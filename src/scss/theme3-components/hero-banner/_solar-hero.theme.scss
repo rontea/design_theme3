@@ -1,0 +1,26 @@
+@use "../../theme_3/abstracts/variables" as *;
+
+$hero-theme-light: (
+  background: #fff,
+  color: #000,
+  accent: #c8ff3d,
+  border: rgba(0, 0, 0, 0.2),
+  title-font-size: $font-size-xxl,
+  status-font-size: 0.9rem,
+  play-button-font-size: 1.5rem,
+  hero-min-height: 50vh,
+);
+
+$hero-theme-dark: (
+  background: #000,
+  color: #fff,
+  accent: #c8ff3d,
+  border: rgba(255, 255, 255, 0.2),
+  title-font-size: $font-size-xxl,
+  status-font-size: 0.9rem,
+  play-button-font-size: 1.5rem,
+  hero-min-height: 50vh,
+);
+
+// Set default theme
+$hero-theme: $hero-theme-dark;

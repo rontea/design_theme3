@@ -1,8 +1,10 @@
+
+@use "sass:map";
 /** Fontsize */
 
 /** 1 rem = 10px; 10px/16px = 62.5% */
 
-$font-size: 62.5%;
+$font-size: 64%; // 1rem = 10px
 
 /** Font Family */
 
@@ -52,14 +54,21 @@ $font-family-mono: 'Fira Code', monospace;
 
 // Font sizes (mobile-first, rem-based)
 
-/** Font Sizes (1rem = 10px) */
-$font-size-xs: 1rem; // 10px 
-$font-size-small: 1.3rem;   // 12px
-$font-size-base:  1.6rem;   // 16px (default body)
-$font-size-lg:    2rem;     // 20px
-$font-size-xl:    2.4rem;   // 24px
-$font-size-xxl:   3rem;     // 30px
-$font-size-xxxl:  4rem;     // 40px (headings)
+/** Font Sizes (based on modular scale, rem = 16px default) **/
+$font-size-xs:   0.75rem;  // 12px
+$font-size-sm:   0.875rem; // 14px
+$font-size-base: 1rem;     // 16px (default body)
+$font-size-md:   1.125rem; // 18px
+$font-size-lg:   1.25rem;  // 20px
+$font-size-xl:   1.5rem;   // 24px
+$font-size-xxl:  2rem;     // 32px
+$font-size-xxxl: 3rem;     // 48px
+$font-size-xxxxl: 4rem;    // 64px
+
+/** Fluid Headings **/
+$font-size-fluid-h1: clamp(2.5rem, 1rem + 5vw, 4rem);   // 40 → 64px
+$font-size-fluid-h2: clamp(2rem, 0.75rem + 4vw, 3rem);  // 32 → 48px
+$font-size-fluid-h3: clamp(1.75rem, 0.5rem + 3vw, 2.5rem); // 28 → 40px
 
 
 /** Line Heights */
@@ -122,12 +131,24 @@ $z-index-tooltip: 1070;
 
 /** Breakpoints */
 
-$breakpoint-xs: 0;
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
-$breakpoint-xxl: 1400px;
+$breakpoints: (
+  xs: 480px,   // Extra small devices (phones)
+  sm: 600px,   // Small devices (large phones / small tablets)
+  md: 768px,   // Medium devices (tablets)
+  lg: 992px,   // Large devices (small laptops)
+  xl: 1200px,  // Extra large devices (desktops)
+  xxl: 1440px, // Very large screens (wide monitors)
+  xxxl: 1920px // Ultra-wide / HD displays
+);
+
+// Optional: standalone variables if needed outside map
+$breakpoint-xs: map.get($breakpoints, xs);
+$breakpoint-sm: map.get($breakpoints, sm);
+$breakpoint-md: map.get($breakpoints, md);
+$breakpoint-lg: map.get($breakpoints, lg);
+$breakpoint-xl: map.get($breakpoints, xl);
+$breakpoint-xxl: map.get($breakpoints, xxl);
+$breakpoint-xxxl: map.get($breakpoints, xxxl);
 
 /** Transitions */
 

@@ -1,0 +1,31 @@
+
+@use "../../../theme_3/abstracts/variables" as *;
+@use "sass:color";
+@use "sass:map";
+
+$header-theme-dark: (
+  background: #11110f,
+  border: #1f1f1f,
+  text: #fff,
+  accent: #b8ff3f,
+  accent-hover: #d0ff6a,
+  dropdown-bg: #fff,
+  dropdown-text: #111,
+  side-bg: #081020,
+  button-text: #111
+);
+
+$header-theme-light: (
+  background: #fff,
+  border: #ddd,
+  text: #111,
+  accent: #2d4cff,
+  accent-hover: #4b6aff,
+  dropdown-bg: #f5f5f5,
+  dropdown-text: #000,
+  side-bg: #fafafa,
+  button-text: #fff
+);
+
+// Set default theme
+$header-theme: $header-theme-dark;

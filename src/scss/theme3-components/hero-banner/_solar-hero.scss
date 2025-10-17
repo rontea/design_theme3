@@ -1,0 +1,118 @@
+
+@use "sass:map";;
+@use "../../theme_3/abstracts/variables" as *;
+@use "./mixin" as *;
+@use "./_solar-hero.theme" as *;
+/** 
+ * Theme Map Example (in _themes.scss)
+ * $hero-theme-light: (
+ *   background: #fff,
+ *   color: #000,
+ *   accent: #c8ff3d,
+ *   border: rgba(0, 0, 0, 0.2)
+ * );
+ *
+ * $hero-theme-dark: (
+ *   background: #000,
+ *   color: #fff,
+ *   accent: #c8ff3d,
+ *   border: rgba(255, 255, 255, 0.2)
+ * );
+ */
+
+/* === HERO COMPONENT === */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: map.get($hero-theme, hero-min-height);
+  padding: 0 8%;
+  background: map.get($hero-theme, background);
+  color: map.get($hero-theme, color);
+
+  /* Responsive */
+  @include respond('tablet') {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+/* === HERO CONTENT === */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @include respond('tablet') {
+    align-items: center;
+  }
+}
+
+/* === HERO TITLE === */
+.hero-title {
+  font-size: clamp(map.get($hero-theme, title-font-size), 5vw, 4rem);
+  font-weight: $font-weight-bold;
+
+  span {
+    color: map.get($hero-theme, accent);
+  }
+}
+
+/* === HERO STATUS === */
+.status {
+  font-size: map.get($hero-theme, status-font-size);
+  opacity: 0.8;
+  border-bottom: 1px solid map.get($hero-theme, border);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  max-width: 50%;
+  
+}
+
+/* === CTA BUTTON GROUP === */
+.cta {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  gap: 1rem;
+
+  span {
+    opacity: 0.8;
+  }
+}
+
+/* === PLAY BUTTON === */
+.play-btn {
+  border: 2px solid map.get($hero-theme, color);
+  background: transparent;
+  color: map.get($hero-theme, color);
+  font-size: map.get($hero-theme, play-button-font-size);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    background: map.get($hero-theme, accent);
+    color: map.get($hero-theme, background);
+  }
+}
+
+/* === HERO IMAGE === */
+.hero-image img {
+  @include respond('tablet') {
+    max-width: 80%;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+}
+
+.status {
+   @include respond('tablet') {
+    padding-top: 2rem;
+  }
+}

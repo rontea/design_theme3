@@ -1,15 +1,10 @@
 @use '../abstracts/_variables' as *;
 
-// Global gutters (spacing inside containers)
-$theme-container-gutter: 1rem;
 
-/** containers */
 
-$theme-container-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px,
-  xxl: 1320px
+$container-themes: (
+  light: (background: $color-light, text: $color-dark),
+  dark: (background: $color-dark, text: $color-light),
+  primary: (background: $color-primary, text: $color-white),
+  surface: (background: $color-surface, text: $color-text)
 );
-
