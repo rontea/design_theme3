@@ -14,10 +14,5 @@ License: MIT
 License URI: 
 Text Domain: 
 */
+@use "theme_3/theme/site.theme";
 @use "theme_3/base/reset";
-@use "theme_3/abstracts/variables";
-@use "theme_3/abstracts/typography";
-@use "theme_3/abstracts/containers";
-@use "theme_3/layout/header";
-@use "theme3-components/headers/navs/solar-nav";    
-@use "theme3-components/hero-banner/solar-hero";

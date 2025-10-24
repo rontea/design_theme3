@@ -1,0 +1,195 @@
+/** @file theme/_site.theme.scss */
+
+@use "sass:map";
+@use "sass:color";
+@use "../abstracts/mixins" as *;
+
+/* =========================================
+   THEME MAPS (Default + Dark)
+   ========================================= */
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+/* === Default (Light) Theme === */
+$theme-default: (
+  font: (
+    base-size-percentage: 64%, // 1rem = 10px
+    line-height-base: 1.5, // readable default
+    letter-spacing-base: 0.01em,
+
+    family: (
+      primary: "'Nunito', sans-serif",
+      sans: "'Inter', Arial, sans-serif",
+      serif: "'Merriweather', Georgia, serif",
+      mono: "'Fira Code', monospace"
+    ),
+
+    weight: (
+      light: 300,
+      regular: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700
+    ),
+
+    size: (
+      xs: 0.75rem,     // 12px
+      sm: 0.875rem,    // 14px
+      base: 1rem,      // 16px
+      md: 1.125rem,    // 18px
+      lg: 1.25rem,     // 20px
+      xl: 1.5rem,      // 24px
+      xxl: 2rem,       // 32px
+      xxxl: 3rem,      // 48px
+      xxxxl: 4rem      // 64px
+    ),
+
+    responsive-scale: (
+      sm: 0.9,  // scale down slightly on small screens
+      lg: 1.1,  // scale up slightly on large screens
+      xl: 1.25  // larger type for extra large screens
+    )
+  ),
+
+  colors: (
+    primary: #C9F31D,
+    primary-light: color.adjust(#C9F31D, $lightness: 15%),
+    primary-dark: color.adjust(#C9F31D, $lightness: -10%),
+
+    secondary: #6C757D,
+    secondary-light: color.adjust(#6C757D, $lightness: 10%),
+    secondary-dark: color.adjust(#6C757D, $lightness: -10%),
+
+    accent: #FF5722,
+    accent-light: color.adjust(#FF5722, $lightness: 10%),
+    accent-dark: color.adjust(#FF5722, $lightness: -10%),
+
+    success: #198754,
+    danger: #DC3545,
+    warning: #FFC107,
+    info: #0DCAF0,
+
+    background: #F8F9FA,
+    surface: #ffffff,
+    text: #212529,
+    border: #dee2e6,
+    overlay: rgba(#212529, 0.6),
+
+    link: #0DCAF0,
+    heading: #0D6EFD,
+    dark: #212529,
+    light: #F8F9FA,
+    white: #ffffff,
+
+    gray-100: #f8f9fa,
+    gray-200: #e9ecef,
+    gray-300: #dee2e6,
+    gray-400: #ced4da,
+    gray-500: #adb5bd,
+    gray-600: #6c757d,
+    gray-700: #495057,
+    gray-800: #343a40,
+    gray-900: #212529
+  ),
+
+  spacing: (
+    0: 0,
+    1: 0.25rem,
+    2: 0.5rem,
+    3: 0.75rem,
+    4: 1rem,
+    5: 1.5rem,
+    6: 2rem,
+    7: 3rem,
+    8: 4rem
+  ),
+
+  radius: (
+    none: 0,
+    sm: 0.125rem,
+    md: 0.25rem,
+    lg: 0.5rem,
+    xl: 1rem,
+    round: 50%
+  ),
+
+  shadows: (
+    sm: 0 1px 2px rgba(0,0,0,0.05),
+    md: 0 2px 4px rgba(0,0,0,0.1),
+    lg: 0 4px 6px rgba(0,0,0,0.15),
+    xl: 0 10px 20px rgba(0,0,0,0.2)
+  ),
+
+  z-index: (
+    dropdown: 1000,
+    sticky: 1020,
+    fixed: 1030,
+    modal-backdrop: 1040,
+    modal: 1050,
+    popover: 1060,
+    tooltip: 1070
+  ),
+
+  containers: (
+    xs: 100%,
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px
+  ),
+
+  transitions: (
+    fast: 150ms ease-in-out,
+    base: 300ms ease-in-out,
+    slow: 500ms ease-in-out
+  )
+);
+
+/* === Dark Theme (inherits from default) === */
+$theme-dark: map.merge($theme-default, (
+  font: (
+    family: (
+      primary: "'Inter Tight', sans-serif"
+    )
+  ),
+  colors: (
+    background: #121416,
+    surface: #1C1F22,
+    text: #E9ECEF,
+    border: #2B2F33,
+    overlay: rgba(#000, 0.6),
+    primary: color.adjust(#C9F31D, $lightness: 5%),
+    primary-light: color.adjust(#C9F31D, $lightness: 15%),
+    primary-dark: color.adjust(#C9F31D, $lightness: -10%),
+    link: color.adjust(#0DCAF0, $lightness: 10%)
+  )
+));
+
+/* =========================================
+   THEME REGISTRY (Optional for iteration)
+   ========================================= */
+$themes: (
+  default: $theme-default,
+  dark: $theme-dark
+);
+
+/* =========================================
+   Generate Theme Variables for Light & Dark
+   ========================================= */
+
+
+
+:root {
+  @include apply-theme($theme-default);
+}
+[data-theme="dark"] {
+  @include apply-theme($theme-dark, $theme-default);
+}

@@ -1,89 +1,89 @@
-
+/**@file abstracts/_mixins.scss */
 @use "sass:map";
-@use "../theme/header.theme" as *;
-@use "../theme/containers.theme" as *;
+@use "sass:meta";
+@use "sass:string";
+/* =========================================
+   Mixin: Generate CSS Variables
+   ========================================= */
 
-/** @desc Apply theme properties
- * @param {String} $theme-name - Name of the theme (e.g., 'light', 'dark')
- */
+@mixin apply-theme($theme, $include-noncolors: true) {
+  $colors: map.get($theme, colors);
 
-@mixin theme-header($theme-name) {
-  $theme: map.get($themes, $theme-name);
+  // Generate color variables (always)
+  @each $name, $value in $colors {
+    --#{"" + $name}: #{$value};
+  }
 
-  background-color: map.get($theme, header-bg);
-  color: map.get($theme, header-color);
+  // Only include font, spacing, and radius if $include-noncolors is true
+  @if $include-noncolors == true {
+    $font: map.get($theme, font);
+    $spacing: map.get($theme, spacing);
+    $radius: map.get($theme, radius);
+    $shadows: map.get($theme, shadows);
+    $z-index: map.get($theme, z-index);
+    $containers: map.get($theme, containers);
+    $transitions: map.get($theme, transitions);
 
-  a {
-    color: map.get($theme, nav-link-color);
+    // Font sizes
+    @each $name, $value in map.get($font, size) {
+      --font-size-#{$name}: #{$value};
+    }
 
-    &:hover {
-      color: map.get($theme, nav-link-hover);
+    // Spacing
+    @each $name, $value in $spacing {
+      --space-#{$name}: #{$value};
+    }
+
+    // Radius
+    @each $name, $value in $radius {
+      --radius-#{$name}: #{$value};
+    }
+        // shadows
+    @each $name, $value in $shadows {
+      --shadow-#{$name}: #{$value};
+    }
+    // z-index
+    @each $name, $value in $z-index {
+      --z-index-#{$name}: #{$value};
+    }
+    // containers
+    @each $name, $value in $containers {
+      --container-#{$name}: #{$value};
+    }
+    // transitions
+    @each $name, $value in $transitions {
+      --transition-#{$name}: #{$value};
     }
   }
 }
 
-/** @desc Apply dropdown styles
- * @param {String} $theme-name - Name of the theme (e.g., 'light', 'dark')
- */
+ /* =========================================
+   Mixin: Apply Theme (for :root and data-theme)
+   ========================================= */
 
-@mixin dropdown($theme-name) {
-  $theme: map.get($themes, $theme-name);
+/// Apply theme variables as CSS custom properties.
+/// Supports nested maps and optional comparison to a base theme.
+@mixin apply-theme($theme-map, $compare-map: null, $prefix: "") {
+  @each $key, $value in $theme-map {
+    $safe-key: '' + $key; // ensure key is string-safe
+    $var-name: if($prefix != "", "#{$prefix}-#{$safe-key}", $safe-key);
 
-  position: relative;
+    @if meta.type-of($value) == "map" {
+      // Recurse deeper
+      $compare-nested: if($compare-map != null and map.has-key($compare-map, $key), map.get($compare-map, $key), null);
+      @include apply-theme($value, $compare-nested, $var-name);
+    } @else {
+      // Get compare value for difference checking
+      $base-value: if(
+        $compare-map != null and map.has-key($compare-map, $key),
+        map.get($compare-map, $key),
+        null
+      );
 
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 180px;
-    background-color: map.get($theme, dropdown-bg);
-    border-radius: 0.25rem;
-    padding: 0.5rem 0;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    z-index: 1000;
-
-    li {
-      a {
-        display: block;
-        padding: 0.5rem 1rem;
-        white-space: nowrap;
-        text-decoration: none;
-        color: map.get($theme, nav-link-color);
-
-        &:hover {
-          background-color: map.get($theme, dropdown-hover-bg);
-          color: map.get($theme, nav-link-hover);
-        }
+      // Only output changed or initial values
+      @if $compare-map == null or $base-value != $value {
+        --#{$var-name}: #{$value};
       }
     }
-  }
-
-  &:hover .dropdown-menu {
-    display: block;
-  }
-}
-
-
-/* Responsive Mixin */
-@mixin respond($breakpoint) {
-  @if $breakpoint == 'tablet' {
-    @media (max-width: 768px) {
-      @content;
-    }
-  }
-    @if $breakpoint == 'lg' {
-    @media (max-width: 992px) {
-      @content;
-    }
-  }
-}
-
-
-/** @desc Apply container styles */
-@each $name, $theme in $container-themes {
-  .container--#{$name} {
-    background-color: map.get($theme, background);
-    color: map.get($theme, text);
   }
 }
