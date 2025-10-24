@@ -1,0 +1,45 @@
+/** @file theme_3/utilities/_colors.scss */
+
+/* =========================================
+   Utilities: Color System (CSS Variable Based)
+   =========================================
+   Purpose:
+   - Generates color utilities that reference
+     theme color CSS variables (e.g. var(--colors-primary)).
+   - Automatically adapts when [data-theme="dark"] is active,
+     since CSS variables are theme-driven.
+   - Prevents interpolation warnings by forcing safe key
+     conversion using ("" + $key).
+
+   Structure:
+   1. Imports & Dependencies
+   2. Utility Generator
+   3. Recommended Usage Pattern
+   ========================================= */
+
+   /* -----------------------------------------
+   1. Imports & Dependencies
+   ----------------------------------------- */
+   
+@use "../theme/site.theme" as *;
+@use "sass:map";
+
+$color-map: map.get($theme-default, colors);
+
+// Utility generator
+@each $name, $value in $color-map {
+  // 👇 Force map key to string to prevent interpolation warnings
+  $key: "" + $name;
+
+  .text-#{$key} {
+    color: var(--colors-#{$key});
+  }
+
+  .bg-#{$key} {
+    background-color: var(--colors-#{$key});
+  }
+
+  .border-#{$key} {
+    border-color: var(--colors-#{$key});
+  }
+}

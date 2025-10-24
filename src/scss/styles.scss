@@ -16,3 +16,10 @@ Text Domain:
 */
 @use "theme_3/theme/site.theme";
 @use "theme_3/base/reset";
+@use "theme_3/utilities/colors";
+
+/** Test Colors
+ * @use "theme_3/tests/_test.colors";
+ */
+
+ @use "theme_3/tests/_test.colors" as *;

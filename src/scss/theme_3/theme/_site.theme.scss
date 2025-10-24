@@ -59,35 +59,40 @@ $theme-default: (
   ),
 
   colors: (
+    /* Core Brand */
     primary: #C9F31D,
-    primary-light: color.adjust(#C9F31D, $lightness: 15%),
-    primary-dark: color.adjust(#C9F31D, $lightness: -10%),
+    primary-light: color.adjust(#C9F31D, $lightness: 18%),
+    primary-dark: color.adjust(#C9F31D, $lightness: -12%),
 
     secondary: #6C757D,
-    secondary-light: color.adjust(#6C757D, $lightness: 10%),
-    secondary-dark: color.adjust(#6C757D, $lightness: -10%),
+    secondary-light: color.adjust(#6C757D, $lightness: 15%),
+    secondary-dark: color.adjust(#6C757D, $lightness: -15%),
 
-    accent: #FF5722,
-    accent-light: color.adjust(#FF5722, $lightness: 10%),
-    accent-dark: color.adjust(#FF5722, $lightness: -10%),
+    accent: #FF7043, // slightly softened from #FF5722
+    accent-light: color.adjust(#FF7043, $lightness: 15%),
+    accent-dark: color.adjust(#FF7043, $lightness: -10%),
 
+    /* Status Colors */
     success: #198754,
     danger: #DC3545,
     warning: #FFC107,
     info: #0DCAF0,
 
+    /* Neutrals */
     background: #F8F9FA,
-    surface: #ffffff,
+    surface: #FFFFFF,
     text: #212529,
-    border: #dee2e6,
-    overlay: rgba(#212529, 0.6),
+    border: #DEE2E6,
+    overlay: rgba(#212529, 0.4),
 
-    link: #0DCAF0,
+    /* Links & Text */
+    link: #0D6EFD,
     heading: #0D6EFD,
     dark: #212529,
     light: #F8F9FA,
-    white: #ffffff,
+    white: #FFFFFF,
 
+    /* Grays */
     gray-100: #f8f9fa,
     gray-200: #e9ecef,
     gray-300: #dee2e6,
@@ -161,15 +166,30 @@ $theme-dark: map.merge($theme-default, (
     )
   ),
   colors: (
-    background: #121416,
-    surface: #1C1F22,
+    /* Adjusted base layers */
+    background: #0F1113,
+    surface: #181B1E,
     text: #E9ECEF,
-    border: #2B2F33,
-    overlay: rgba(#000, 0.6),
-    primary: color.adjust(#C9F31D, $lightness: 5%),
-    primary-light: color.adjust(#C9F31D, $lightness: 15%),
+    border: #3A3F44,
+    overlay: rgba(#000, 0.4),
+
+    /* Brand colors slightly richer */
+    primary: color.adjust(#C9F31D, $lightness: 5%, $saturation: -10%),
+    primary-light: color.adjust(#C9F31D, $lightness: 10%),
     primary-dark: color.adjust(#C9F31D, $lightness: -10%),
-    link: color.adjust(#0DCAF0, $lightness: 10%)
+
+    /* Supporting colors tuned for dark background */
+    secondary: color.adjust(#6C757D, $lightness: 25%),
+    accent: color.adjust(#FF7043, $lightness: 10%),
+
+    /* Status variants for dark readability */
+    success: color.adjust(#198754, $lightness: 10%),
+    danger: color.adjust(#DC3545, $lightness: 10%),
+    warning: color.adjust(#FFC107, $lightness: -5%),
+    info: color.adjust(#0DCAF0, $lightness: 5%),
+
+    link: color.adjust(#0D6EFD, $lightness: 20%),
+    heading: color.adjust(#C9F31D, $lightness: 5%)
   )
 ));
 
